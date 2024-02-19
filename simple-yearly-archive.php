@@ -1,7 +1,7 @@
 <?php
 /*
- * Plugin Name: Simple Yearly Archive
- * Version: 2.2.2
+ * Plugin Name: Simple Yearly Archive - mod
+ * Version: 2.2.2 - 0.0.1
  * Plugin URI: https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
  * Description: A simple, clean yearly list of your archives.
  * Author: Oliver Schl&ouml;be
@@ -25,6 +25,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
+
+function boiron_enqueue_css_js() {
+	wp_enqueue_script( 'yearly-js', plugins_url( 'js/yearly.js', __FILE__ ));
+}
+add_action( 'wp_enqueue_scripts', 'boiron_enqueue_css_js' );
+
 
 /**
  * The main plugin file
@@ -286,13 +292,15 @@ class SimpleYearlyArchive
 						$listitems .= '</li>';
 					}
 					
-					$output .= $before . apply_filters("sya_yearanchor", '<a id="year' . $year . '"></a>', $year) . $linkyears_prepend . $year . $linkyears_append;
+					// $output .= $before . apply_filters("sya_yearanchor", '<a id="year' . $year . '"></a>', $year) . $linkyears_prepend . $year . $linkyears_append;
+					$output .= $before . apply_filters("sya_yearanchor", '<a id="year' . $year . '"></a>', $year) . $linkyears_prepend . $linkyears_append;
 					if (get_option('sya_postcount') == true) {
 						$postcount = count($allposts[$currentYear]);
 						$output .= ' <span class="sya_yearcount"><span class="sya_bracket">(</span>' . $postcount . '<span class="sya_bracket">)</span></span>';
 					}
 					$additional_css = (get_option('sya_collapseyears') == true ? ' style="display:none;"' : '');
-					$output .= $after . '<ul' . $additional_css . '>' . $listitems . '</ul>';
+					// $output .= $after . '<ul' . $additional_css . ' id="year-ul-' . $year . '">' . $listitems . '</ul>';
+					$output .= $after . '<ul' . $additional_css . ' id="year-ul-' . $year . '">' . $listitems . '</ul>';
 				}
 			}
 		} else {
@@ -464,7 +472,8 @@ class SimpleYearlyArchive
 	{
 		$years = array();
 		foreach ($yeararray as $year) {
-			$years[] = '<a href="#year' . $year . '">' . $year . '</a>';
+			// $years[] = '<a href="#year' . $year . '">' . $year . '</a>';
+			$years[] = '<a href="#">' . $year . '</a>';
 		}
 		return $years;
 	}
@@ -676,3 +685,4 @@ function simpleYearlyArchive($format = 'yearly', $excludeCat = '', $includeCat =
 	$sya = SimpleYearlyArchive::get_instance();
 	$sya->display($format, $excludeCat, $includeCat, $posttype, $dateformat);
 }
+

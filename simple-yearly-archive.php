@@ -473,7 +473,7 @@ class SimpleYearlyArchive
 		$years = array();
 		foreach ($yeararray as $year) {
 			// $years[] = '<a href="#year' . $year . '">' . $year . '</a>';
-			$years[] = '<a href="#">' . $year . '</a>';
+			$years[] = '<a id="year-anchor-' . $year . '" href="#">' . $year . '</a>';
 		}
 		return $years;
 	}

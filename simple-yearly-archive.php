@@ -26,10 +26,6 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-function boiron_enqueue_css_js() {
-	wp_enqueue_script( 'yearly-js', plugins_url( 'js/yearly.js', __FILE__ ));
-}
-add_action( 'wp_enqueue_scripts', 'boiron_enqueue_css_js' );
 
 
 /**
@@ -685,4 +681,6 @@ function simpleYearlyArchive($format = 'yearly', $excludeCat = '', $includeCat =
 	$sya = SimpleYearlyArchive::get_instance();
 	$sya->display($format, $excludeCat, $includeCat, $posttype, $dateformat);
 }
+
+
 
